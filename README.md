@@ -23,7 +23,7 @@ angular.module('angularApp', ['ngRoute', 'Aerobatic']);
 The module includes an `aerobatic` service which can be injected into your own services, controllers, directives, etc. The service is simply a pointer to the `window.__config__` object that Aerobatic injects into the `<head/>` of your `index.html` document.
 
 ### Getting current user
-If you Aerobatic app has OAuth enabled, the aerobatic service will provide a `user` attribute that you can use to display the username, profile image, etc.
+If your Aerobatic app has [OAuth enabled](http://www.aerobatic.com/docs/authentication), the `aerobatic` service will provide a `user` attribute that you can use to display the username, profile image, etc.
 
 ```js
 angular.module('angularApp').controller('MainCtrl', function($scope, aerobatic) {
@@ -59,7 +59,7 @@ angular.module('angularApp').config(function($routeProvider, aerobaticProvider) 
 ```
 
 ### HTML5 PushState
-When html5 push state is enabled in your Angular app, it can cause havoc with the simulator because the special querystring parameters `sim=1&userid=xxx` will get lost whenever the view changes. Then if the browser refreshes, either manually or by livereload, the simulator mode is lost. To avoid this the module includes some logic to re-append the querystring
+When html5 push state is enabled in your Angular app, it can cause havoc with the simulator because the special querystring parameters `sim=1&userid=xxx` will get lost whenever the view changes. When the browser refreshes, either manually or by livereload, the simulator mode is lost. To avoid this the module internally includes logic to re-generate the querystring whenever the route changes:
 
 ```js
 if ($location.$$html5 === true) {
