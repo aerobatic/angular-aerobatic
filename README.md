@@ -7,7 +7,7 @@ For the most part you author your Angular app exactly how you normally would, th
 `bower install angular-aerobatic --save`
 
 ## Setup
-Include a reference to reference to the script in your index.html page. In debug mode you can simply point to the non-compressed file. In release mode you will likely want to concat the minified version together with other vendor scripts via a Grunt or Gulp task.
+Include a reference to the script in your index.html page. In debug mode you can simply point to the non-compressed file. In release mode you will likely want to concat the minified version together with other vendor scripts via a Grunt or Gulp task.
 
 ```html
 <script data-aero-build="debug" src="bower_components/angular-aerobatic/angular-aerobatic.js"></script>
