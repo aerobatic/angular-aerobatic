@@ -1,6 +1,6 @@
 {
   "name": "angular-aerobatic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Angular extensions for building apps on the Aerobatic hosting platform",
   "main": "angular-aerobatic.js",
   "homepage": "http://www.aerobatic.com",

@@ -9,7 +9,6 @@
   // Detect CORS support which is required in order to load templates using XHR from the CDN.
   // https://hacks.mozilla.org/2009/07/cross-site-xmlhttprequest-with-cors/
   var corsEnabled = 'withCredentials' in new XMLHttpRequest();
-  var releaseMode = window.__config__.simulator !== true || /release=1/.test(window.location.search);
 
   // Build the absolute asset URL.
   var _aerobatic = {};
@@ -23,7 +22,7 @@
     }
 
     // If there is a release prefix prepend it to the path
-    if (releaseMode === true && _aerobatic.releasePrefix) {
+    if (_aerobatic.buildType === 'release' && _aerobatic.releasePrefix) {
       path = '/' + _aerobatic.releasePrefix + path;
     }
 
@@ -35,6 +34,16 @@
   // Expose the aerobatic object as a service
   module.provider('aerobatic', function() {
     this.config = _aerobatic;
+
+    this.templateUrl = function(path) {
+      // In simulator or debug mode the templates are assumed to be loaded individually via AJAX.
+      // In release mode the templates are assumed to be precompiled into the $templateCache so
+      // so we can just reference the path by itself.
+      if (_aerobatic.buildType === 'debug')
+        return _aerobatic.cdnUrl + '/' + path;
+      else
+        return path;
+    };
 
     this.$get = function () {
       return _aerobatic;
