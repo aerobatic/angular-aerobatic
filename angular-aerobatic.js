@@ -29,6 +29,7 @@
     return window.__config__.cdnUrl + path;
   };
 
+  angular.module('templates', []);
   var module = angular.module('Aerobatic', []);
 
   // Expose the aerobatic object as a service
@@ -50,15 +51,15 @@
     };
   });
 
-  module.config(function($sceDelegateProvider) {
+  module.config(['$sceDelegateProvider', function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       // Need the special 'self' keyword so the angular-ui templates are trusted
       'self',
       window.location.protocol + '//' + _aerobatic.cdnHost + '/**'
     ]);
-  });
+  }]);
 
-  module.run(function($log, $rootScope, $location) {
+  module.run(['$log', '$rootScope', '$location', function($log, $rootScope, $location) {
     // Preserve the querystring during HTML5 view navigations when in simulator
     // mode. This way when livereload forces the browser to refresh we won't lose
     // the fact we are in simulator mode designated by the "sim=1" in the querystring.
@@ -70,10 +71,10 @@
         }
       });
     }
-  });
+  }]);
 
   // Directive that builds url to a static asset by prepending the cdnUrl.
-  module.directive('assetSrc', function($log, aerobatic) {
+  module.directive('assetSrc', ['$log', 'aerobatic', function($log, aerobatic) {
     return function(scope, element, attrs) {
       var absoluteUrl = aerobatic.assetUrl(attrs.assetSrc);
       // Detect if this is an .html or .json request
@@ -83,5 +84,5 @@
 
       element.attr('src', absoluteUrl);
     };
-  });
+  }]);
 })();
