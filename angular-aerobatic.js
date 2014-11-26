@@ -36,16 +36,6 @@
   module.provider('aerobatic', function() {
     this.config = _aerobatic;
 
-    this.templateUrl = function(path) {
-      // In simulator or debug mode the templates are assumed to be loaded individually via AJAX.
-      // In release mode the templates are assumed to be precompiled into the $templateCache so
-      // so we can just reference the path by itself.
-      if (_aerobatic.buildType === 'debug')
-        return _aerobatic.cdnUrl + '/' + path;
-      else
-        return path;
-    };
-
     this.$get = function () {
       return _aerobatic;
     };
