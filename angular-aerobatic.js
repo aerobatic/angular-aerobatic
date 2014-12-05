@@ -36,6 +36,13 @@
   module.provider('aerobatic', function() {
     this.config = _aerobatic;
 
+    this.templateUrl = function(path) {
+      if (_aerobatic.buildType === 'debug')
+        return _aerobatic.cdnUrl + '/' + path;
+      else
+        return path;
+    };
+
     this.$get = function () {
       return _aerobatic;
     };
